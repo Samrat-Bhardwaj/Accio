@@ -32,10 +32,11 @@ class Student {
 
 
 public class OOP {
+    
 	public static void main(String[] args) {
 		Student s1 = new Student(); // it will call the construtcor automatically,  it will create heap memory 
         Student s2= new Student("pratik",2,10);
-
+        
         s1.makeNoise();
 	}
 }
