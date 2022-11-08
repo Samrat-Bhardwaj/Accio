@@ -1,3 +1,5 @@
+
+
 class Vechile {
     int no_of_wheels;
     String color="Blue";
