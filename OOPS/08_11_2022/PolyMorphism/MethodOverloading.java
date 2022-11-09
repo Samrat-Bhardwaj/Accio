@@ -10,7 +10,7 @@ class Vechile {
         System.out.println("2 params");
     }
     
-    public void Honk(int a){
+    public void Honk(String a, String b){
         System.out.println("peee peee "+a);
     }
     
