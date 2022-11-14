@@ -26,15 +26,20 @@ class Car extends Vechile {
 }
 
 class Hyundai extends Car {
-    String name;
+    String name="Accio";
     
     public Hyundai(){
         System.out.println("Hyundai constructor is called");
+    }
+
+    public String toString(){
+        return name;
     }
 }
 
 public class Inheritance{
 	public static void main(String[] args) {
 	   Hyundai h1 = new Hyundai();
+       System.out.println(h1);
 	}
 }

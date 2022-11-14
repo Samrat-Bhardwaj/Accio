@@ -1,4 +1,4 @@
-class Employee {
+final class Employee {
     String name;
     private int salary = 100000;
     
@@ -20,6 +20,7 @@ class Employee {
         return this.salary;
     }
 }
+
 
 public class Main {
     public static void main(String[] args) {
