@@ -21,8 +21,7 @@ class Child extends Student {
 
 public class Abstraction {
     public static void main(String[] args) {
-        Child c1 = new Child();
-        c1.print();
-        c1.printAbstract();
+        Child c1 =new Child();
+        Node address
     }
 }
