@@ -26,8 +26,25 @@ public class Main {
         }
     }
 
+    public static void addFirst(int data){
+        Node nn = new Node(data);
+
+        if(head == null){
+            head = nn;
+            tail =nn;
+        } else {
+            nn.next = head;
+            head = nn;
+        }
+    }
+
+    // homework 
+    public static void display(){
+        
+    }
+
     public static void main(String[] args) {
-        head =null;
+        head = null;
         tail = null;
 
         Scanner scn = new Scanner(System.in);
@@ -40,7 +57,8 @@ public class Main {
             int a = scn.nextInt();
             addLast(a);
         }
-        
+
+
         System.out.println(head.data);
         System.out.println(tail.data);
     }
