@@ -55,6 +55,28 @@ public class Main {
         } 
     }
 
+    public static Node getAt(int idx){
+        if(idx < 0){
+            System.out.println("given index is out of range");
+            return null;
+        }
+
+        Node curr = head;
+        for(int i=0; i<idx; i++){
+            if(curr==null){
+                System.out.println("given index is out of range");
+                return null;
+            }
+            curr=curr.next;
+        }
+
+        return curr;
+    }
+
+    public static void addAt(int idx, int data){
+        
+    }
+
     public static void main(String[] args) {
         head = null;
         tail = null;
@@ -72,8 +94,9 @@ public class Main {
 
         display();
         
-        removeFirst();
+        Node ans = getAt(-1);
 
-        display();
+        if(ans!=null)
+            System.out.println(ans.data);
     }
 }
