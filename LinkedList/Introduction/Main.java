@@ -9,6 +9,7 @@ class Node {
     }
 }
 
+
 public class Main {
     static Node head;
     static Node tail;
@@ -50,9 +51,14 @@ public class Main {
     }
 
     public static void removeFirst(){
-        if(head!=null){ //  should atleast have one node to remove
+        if(head==null){ //  should atleast have one node to remove
+            System.out.println("Cant remove anything");
+        } else if(head == tail){
+            head = null;
+            tail = null;
+        } else {
             head = head.next;
-        } 
+        }
     }
 
     public static Node getAt(int idx){
@@ -88,6 +94,28 @@ public class Main {
         nn.next = nextOfCurr;
     }
 
+    public static Node removeLast(){
+        if(head==null){ // 0 size
+            return null;
+        } else if(head==tail){ // 1 size
+            Node tr=tail;
+            removeFirst();
+            return tr;
+        } else {
+            Node curr = head;
+            while(curr.next!=tail){
+                curr = curr.next;
+            }
+
+            curr.next=null;
+            // updating tail
+            Node tr = tail;
+            tail = curr;
+
+            return tr;
+        }
+    }
+
     public static void main(String[] args) {
         head = null;
         tail = null;
@@ -105,7 +133,9 @@ public class Main {
 
         display();
         
-        addAt(3, 15);
+        Node ans = removeLast();
+        if(ans!=null)
+            System.out.println(ans.data);
 
         display();
     }
