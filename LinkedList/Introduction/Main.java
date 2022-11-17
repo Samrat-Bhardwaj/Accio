@@ -74,7 +74,7 @@ public class Main {
     }
 
     public static void addAt(int idx, int data){
-        
+
     }
 
     public static void main(String[] args) {
@@ -94,9 +94,8 @@ public class Main {
 
         display();
         
-        Node ans = getAt(-1);
+        addAt(3, 15);
 
-        if(ans!=null)
-            System.out.println(ans.data);
+        display();
     }
 }
