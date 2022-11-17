@@ -40,7 +40,19 @@ public class Main {
 
     // homework 
     public static void display(){
-        
+        Node curr = head;
+
+        while(curr!=null){
+            System.out.print(curr.data+" ");
+            curr=curr.next;
+        }
+        System.out.println();
+    }
+
+    public static void removeFirst(){
+        if(head!=null){ //  should atleast have one node to remove
+            head = head.next;
+        } 
     }
 
     public static void main(String[] args) {
@@ -58,8 +70,10 @@ public class Main {
             addLast(a);
         }
 
+        display();
+        
+        removeFirst();
 
-        System.out.println(head.data);
-        System.out.println(tail.data);
+        display();
     }
 }
