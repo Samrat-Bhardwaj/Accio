@@ -74,7 +74,18 @@ public class Main {
     }
 
     public static void addAt(int idx, int data){
+        if(idx==0){
+            addFirst(data);
+            return;
+        }
 
+        Node nn = new Node(data);
+
+        Node curr = getAt(idx-1);
+        Node nextOfCurr = curr.next;
+
+        curr.next= nn;
+        nn.next = nextOfCurr;
     }
 
     public static void main(String[] args) {
