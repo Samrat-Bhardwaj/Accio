@@ -116,6 +116,34 @@ public class Main {
         }
     }
 
+    public static int getLength(){
+        Node curr = head;
+        int len =0;
+
+        while(curr!=null){
+            curr = curr.next;
+            len++;
+        }
+
+        return len;
+    }
+
+    public static void removeAt(int idx){
+        int size = getLength();
+        if(idx==0){
+            removeFirst();
+        } else if(idx==size-1){
+            removeLast();
+        } else {
+            Node prev = getAt(idx-1);
+            prev.next = prev.next.next;
+
+            // Node nextOfCurr = prev.next.next;
+            // prev.next = null;
+            // prev.next = nextOfCurr;
+        }
+    }
+
     public static void main(String[] args) {
         head = null;
         tail = null;
@@ -133,9 +161,7 @@ public class Main {
 
         display();
         
-        Node ans = removeLast();
-        if(ans!=null)
-            System.out.println(ans.data);
+        removeAt(3);
 
         display();
     }
