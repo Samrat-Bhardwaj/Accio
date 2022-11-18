@@ -46,6 +46,19 @@ public class Main {
         
         return slow;
     }
+
+    // if first middle is required (in case of even size LL) ===================
+    public ListNode middleNode_(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        
+        while(fast.next!=null && fast.next.next!=null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        return slow;
+    }
     public static void main(String[] args) {
         
     }
