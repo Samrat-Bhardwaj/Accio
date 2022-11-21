@@ -114,6 +114,51 @@ public class Main {
 
     // homework => https://practice.geeksforgeeks.org/problems/remove-loop-in-linked-list/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
 
+    // leetcode 206 ================================
+    public ListNode reverseList(ListNode head) {
+        int n = getSize(head); 
+        
+        int i=0;
+        int j=n-1;
+
+        while(i<j){
+            ListNode nodeAtI = getAt(head, i);
+            ListNode nodeAtJ = getAt(head, j);
+
+            int valAtI = nodeAtI.val;
+            int valAtJ = nodeAtJ.val;
+
+            nodeAtI.val = valAtJ;
+            nodeAtJ.val = valAtI;
+
+            i++;
+            j--;
+        }
+
+        return head;
+    }
+
+    // reverse better =======================================================
+    public ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode curr = head;
+        
+        while(curr!=null){
+            // save next pointer 
+            ListNode nextOfCurr = curr.next;
+            
+            // reverse pointer
+            curr.next = prev;
+            
+            // move pointers to the next 2 nodes
+            prev = curr;
+            curr = nextOfCurr;
+        }
+        // head is now at prev
+        head = prev;
+        
+        return head;
+    }
     public static void main(String[] args) {
         
     }
