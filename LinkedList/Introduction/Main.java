@@ -27,7 +27,7 @@ public class Main {
         }
     }
 
-    public static void addFirst(int data){
+    public static void addFirst(Node data){
         Node nn = new Node(data);
 
         if(head == null){
