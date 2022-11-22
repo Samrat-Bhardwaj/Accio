@@ -149,7 +149,7 @@ public class Main {
     }
 
     // reverse better =======================================================
-    public ListNode reverseList(ListNode head) {
+    public ListNode reverseList_(ListNode head) {
         ListNode prev = null;
         ListNode curr = head;
         
@@ -204,7 +204,57 @@ public class Main {
         return dummy.next;
 	}
 
+    // leetcode 143 ==================================================== 
+    public ListNode merge(ListNode head1, ListNode head2){
+        ListNode dummy = new ListNode(-1);
+        ListNode p1 = head1;
+        ListNode p2 = head2;
+        ListNode curr = dummy;
 
+        while(p1!=null && p2!=null){
+            ListNode nextOfP1=p1.next;
+            p1.next = null;
+
+            ListNode nextOfP2 = p2.next;
+            p2.next=null;
+
+            // first add p1
+            curr.next=p1;
+            p1 = nextOfP1;
+            curr = curr.next;
+
+            // then add p2
+            curr.next = p2;
+            p2 = nextOfP2;
+            curr = curr.next;
+        }
+
+        // if(p1==null){
+        //     curr.next = p2;
+        // }
+
+        // if(p2==null){
+        //     curr.next = p1;
+        // }
+        curr.next = p1;
+
+        return dummy.next;
+    }
+
+    public void reorderList(ListNode head) {
+        // find mid
+        ListNode mid = middleNode_(head);
+
+        // break into two
+        ListNode head2 = mid.next;
+        mid.next=null;
+
+        // reverse the second ll
+        head2 = reverseList_(head2);
+
+        // merge two lists 
+        head = merge(head,head2);
+    }
     public static void main(String[] args) {
         
     }
