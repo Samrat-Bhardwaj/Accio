@@ -204,6 +204,86 @@ public class Main {
         }
     }
     // contest question 3 (https://course.acciojob.com/idle?question=5a341a6c-8fcb-4945-bf2f-ded75cc6402a) ========================
+    class Solution2 {
+        Node oh;
+        Node ot;
+        
+        Node th;
+        Node tt;
+        
+        void addFirst(Node nn){
+            if(th == null){
+                th = nn;
+                tt = nn;
+            } else {
+                nn.next = th;
+                th = nn;
+            }
+        }
+        
+        int getSize(Node head){
+            Node curr = head;
+            
+            int ans = 0;
+            while(curr!=null){
+                ans++;
+                curr=curr.next;
+            }
+            
+            return ans;
+        }
+        
+        
+        public Node reverseKGroup(Node head, int k) {
+            oh = null;
+            ot = null;
+            
+            th = null;
+            tt = null;
+            
+            int size = getSize(head);
+            Node curr = head;
+            // base case ()
+            if(size < k){
+                return head;
+            }
+            
+            while(size>=k){
+                // reverse in pair of k
+                int K=k;
+                while(K-- > 0){
+                    Node nextOfCurr = curr.next;
+                    curr.next = null;
+                    
+                    addFirst(curr);
+                    curr = nextOfCurr;
+                    
+                    size--;
+                }
+                
+                // add th,tt to my original
+                if(oh==null){
+                    oh = th;
+                    ot = tt;
+                } else {
+                    ot.next = th;
+                    ot = tt;
+                }
+                
+                th = null;
+                tt = null;
+            }
+            
+            ot.next = curr;
+            
+            return oh;
+        }
+
+        public Node swapNode(Node head)
+        {
+            return reverseKGroup(head, 2);
+        }
+    }
     public static void main(String[] args) {
         
     }
