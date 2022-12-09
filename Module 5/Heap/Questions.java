@@ -1,6 +1,8 @@
+import java.rmi.ConnectIOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -184,6 +186,96 @@ public class Questions {
 
         Collections.sort(ans);
         return ans;
+    }
+
+    // leetcode 692 =========================================================================================================
+    public List<String> topKFrequent(String[] words, int k) {
+        HashMap<String,Integer> map = new HashMap<>();
+
+        for(String s : words){
+            map.put(s,map.getOrDefault(s, 0)+1);
+        }
+
+        PriorityQueue<String> pq = new PriorityQueue<>((String t, String o)->{
+            if(map.get(t) == map.get(o)){
+                return o.compareTo(t);
+            }
+            return map.get(t) - map.get(o);
+        });
+
+        for(String key:map.keySet()){
+            pq.add(key);
+
+            if(pq.size()>k){
+                pq.remove();
+            }
+        }
+
+        List<String> ans = new ArrayList<>();
+
+        while(pq.size()>0){
+            ans.add(pq.remove());
+        }
+
+        Collections.reverse(ans);
+        return ans;
+    }
+
+    // leet 1642 ===================================================================
+    public int furthestBuilding(int[] heights, int bricks, int ladders) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+
+        for(int i=1; i<heights.length; i++){
+            int diff = heights[i] - heights[i-1];
+
+            if(diff<=0) continue;
+            pq.add(diff);
+
+            if(pq.size()>ladders){
+                int min = pq.remove();
+                bricks -= min;
+            }
+
+            if(bricks < 0) return i-1;
+        }
+
+        return heights.length - 1;
+    }
+
+    // leet 295 ================================================================================== 
+    class MedianFinder {
+        PriorityQueue<Integer> left;
+        PriorityQueue<Integer> right;
+    
+        public MedianFinder() {
+            left = new PriorityQueue<>(Collections.reverseOrder());
+            right = new PriorityQueue<>();
+        }
+        
+        public void addNum(int num) { // log(n)
+            if(left.size()==0 || num<=left.peek()){
+                left.add(num);
+            } else {
+                right.add(num);
+            }
+    
+            int ls = left.size();
+            int rs = right.size();
+    
+            if(ls - rs == 2){
+                right.add(left.remove());
+            } else if(rs > ls){
+                left.add(right.remove());
+            }
+        }
+        
+        public double findMedian() { // O(1)
+            if(left.size() == right.size()){
+                return (1.0*left.peek() + right.peek()*1.0 )/(2.0);
+            } else {
+                return left.peek()*1.0;
+            }
+        }
     }
     public static void main(String[] args) {
         
