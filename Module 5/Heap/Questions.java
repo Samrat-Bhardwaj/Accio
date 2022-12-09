@@ -6,6 +6,14 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.concurrent.ArrayBlockingQueue;
 
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode() {}
+    ListNode(int val) { this.val = val; }
+    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+}
+
 public class Questions {
     // https://course.acciojob.com/idle?question=adf548b4-b1e3-48ab-a427-579fa50c0571
     void swap(int[] data, int i, int j){
@@ -163,7 +171,7 @@ public class Questions {
     }
 
     // leetcode 658 with o(nlogk) ========================================================
-    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+    public List<Integer> findClosestElements_(int[] arr, int k, int x) {
         PriorityQueue<Integer> pq = new PriorityQueue<>((Integer t, Integer o) -> {
             if(Math.abs(t-x) == Math.abs(o-x)){
                 return o - t;
@@ -277,6 +285,66 @@ public class Questions {
             }
         }
     }
+
+    // leetcode 23 =========================================================
+    public ListNode mergeKLists(ListNode[] lists) {
+        PriorityQueue<ListNode> pq = new PriorityQueue<>((ListNode t, ListNode o)->{
+            return t.val - o.val;
+        });
+
+        for(ListNode ln : lists){
+            if(ln!=null)
+                pq.add(ln);
+        }
+
+        ListNode dummy = new ListNode(-1);
+        ListNode curr = dummy;
+
+        while(pq.size()>0){
+            ListNode top = pq.remove();
+
+            curr.next = top;
+            curr = curr.next;
+            if(top.next!=null){
+                pq.add(top.next);
+            }
+
+        }
+
+        return dummy.next;
+    }
+
+    // https://course.acciojob.com/idle?question=04de8eff-0a20-4760-9893-1ab8385faa0d
+    public static ArrayList<Integer> mergeKSortedLists(ArrayList<ArrayList<Integer>> lists){
+        ArrayList<Integer> ans = new ArrayList<>();
+  
+        PriorityQueue<int[]> pq = new PriorityQueue<>((int[] t, int[] o)->{
+            return t[0] - o[0];
+        });
+  
+          for(int i=0; i<lists.size(); i++){
+              int data = lists.get(i).get(0);
+              pq.add(new int[]{data,i,0});
+          }
+  
+         while(pq.size()>0){
+             int[] top = pq.remove();
+  
+             int data = top[0];
+             int li = top[1];
+             int idx = top[2];
+  
+             ans.add(data);
+             if(idx + 1 < lists.get(li).size()){
+                 data = lists.get(li).get(idx+1);
+                 pq.add(new int[]{data,li,idx+1});
+             }
+         }
+  
+        return ans;
+     }
+
+     // https://course.acciojob.com/idle?question=7d6caf6d-28e2-4602-b599-1d2e58d1dde8
     public static void main(String[] args) {
         
     }
