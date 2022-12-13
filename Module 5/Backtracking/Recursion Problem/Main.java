@@ -71,6 +71,24 @@ public class Main {
         }
     }
 
+    // nQueens better 
+    public static void NQueens(int row, int n, boolean[] row_visited, boolean[] col_visited, String asf){
+        if(row==n){
+            System.out.println(asf);
+            return;
+        }
+
+        for(int col=0; col<n; col++){
+            if(row_visited[row] == false && col_visited[col] == false){
+                row_visited[row] = true;
+                col_visited[col] = true;
+                NQueens(row+1, n, row_visited,col_visited, asf+"("+row+" , "+col+")");
+                row_visited[row] = false;
+                col_visited[col] = false;
+            }
+        }
+    }
+
     public static void main(String[] args) {
         // int[][] matrix = {{0,1,0,1,1,1},{0,1,0,1,1,0},{0,1,0,0,0,0},{0,0,0,1,1,0},{0,1,0,1,1,0},{0,0,0,1,1,0}};
         // int n = matrix.length;
