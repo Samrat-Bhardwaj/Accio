@@ -77,6 +77,24 @@ public class CombinationPermutation {
 
         getPermutations(coins,amt,0,vis,"");
     }
+
+    // https://course.acciojob.com/idle?question=703a6a0d-2d07-45e3-9f1c-637c2209793d
+    public static void getPermutationsManyCoins(int[] coins, int tar, int csum, String asf){
+        if(tar==csum){
+            System.out.println(asf);
+            return;
+        }
+        if(tar<csum) return;
+
+        for(int j=0; j<coins.length; j++){
+            getPermutationsManyCoins(coins, tar, csum+coins[j], asf+coins[j]+" ");
+        }
+    }
+
+    public static void coinChange2(int[] coins, int amt){
+        getPermutationsManyCoins(coins, amt, 0, "");
+    }
+
     public static void main(String[] args) {
         int[] arr = {2,3,5,6,7};
         combination_oneCoin(arr, 0, 12,0 , "");
