@@ -75,6 +75,75 @@ public class Questions {
         // return countWays_memo(0,arr,memo);
         // return countWays(0,arr);
     }
+
+    // stickler thief
+    public int findMax(int idx, int[] arr){
+        if(idx == arr.length){
+            return 0;
+        }
+
+        int rob=arr[idx];
+        int notRob=0;
+
+        if(idx+2<=arr.length)
+            rob += findMax(idx+2, arr);
+        
+        notRob = findMax(idx+1, arr);
+
+        int ans = Math.max(rob,notRob);
+
+        return ans;
+    }
+
+    public int findMax_memo(int idx, int[] arr, int[] memo){
+        if(idx == arr.length){
+            return memo[idx]=0;
+        }
+
+        if(memo[idx]!=0) return memo[idx];
+
+        int rob=arr[idx];
+        int notRob=0;
+
+        if(idx+2<=arr.length)
+            rob += findMax_memo(idx+2, arr,memo);
+        
+        notRob = findMax_memo(idx+1, arr,memo);
+
+        int ans = Math.max(rob,notRob);
+
+        return memo[idx]=ans;
+    }
+
+    public int findMax_tabulation(int idx, int[] arr, int[] memo){
+        for(idx=arr.length; idx>=0; idx--){
+            if(idx == arr.length){
+                memo[idx]=0;
+                continue;
+            }
+    
+            int rob=arr[idx];
+            int notRob=0;
+    
+            if(idx+2<=arr.length)
+                rob += memo[idx+2];//findMax_memo(idx+2, arr,memo);
+            
+            notRob = memo[idx+1]; //findMax_memo(idx+1, arr,memo);
+    
+            int ans = Math.max(rob,notRob);
+    
+            memo[idx]=ans;
+        }
+
+        return memo[0];
+    }
+
+    public int FindMaxSum(int arr[], int n){
+        int[] memo= new int[n+1];
+        return findMax_tabulation(0, arr, memo);
+        // return findMax_memo(0, arr,memo);
+        // return findMax(0,arr);
+    }
     public static void main(String[] args) {
         
     }
