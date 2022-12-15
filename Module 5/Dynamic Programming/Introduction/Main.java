@@ -37,6 +37,20 @@ public class Main {
 
         return memo[N];
     }
+    public static int tabulation(int N){
+        int[] dp = new int[N+1];
+
+        dp[0] = 0;
+        dp[1] = 1;
+
+        for(int n=2; n<=N; n++){
+            int ans = dp[n-1] + dp[n-2]; //fib_dp(n-1,dp) + fib_dp(n-2,dp);
+    
+            dp[n]=ans;
+        }
+
+        return dp[N];
+    }
 
     public static int fib_most_optimized(int n){
         int f=0;
