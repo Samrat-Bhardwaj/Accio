@@ -144,6 +144,95 @@ public class Questions {
         // return findMax_memo(0, arr,memo);
         // return findMax(0,arr);
     }
+
+    // leet 746 ==================================
+
+    public int minCost_rec(int[] cost, int idx){
+        if(idx == cost.length){
+            return 0;
+        }
+
+        int oneStep = minCost_rec(cost,idx+1);
+
+        int twoStep = Integer.MAX_VALUE;
+        if(idx + 2 <= cost.length){
+            twoStep = minCost_rec(cost,idx+2);
+        }
+
+        int ans = cost[idx] + Math.min(oneStep,twoStep);
+
+        return ans;        
+    }
+
+    public int minCost_memo(int[] cost, int idx, int[] dp){
+        if(idx == cost.length){
+            return dp[idx]=0;
+        }
+
+        if(dp[idx]!=0) return dp[idx];
+
+        int oneStep = minCost_memo(cost,idx+1,dp);
+
+        int twoStep = Integer.MAX_VALUE;
+        if(idx + 2 <= cost.length){
+            twoStep = minCost_memo(cost,idx+2,dp);
+        }
+
+        int ans = cost[idx] + Math.min(oneStep,twoStep);
+
+        return dp[idx]=ans;  
+    }
+
+    public int minCost_tab(int[] cost, int[] dp){
+        for(int idx = cost.length; idx>=0; idx--){
+            if(idx == cost.length){
+                dp[idx]=0;
+                continue;
+            }
+    
+            int oneStep = dp[idx+1]; //minCost_memo(cost,idx+1,dp);
+    
+            int twoStep = Integer.MAX_VALUE;
+            if(idx + 2 <= cost.length){
+                twoStep = dp[idx+2]; //minCost_memo(cost,idx+2,dp);
+            }
+    
+            int ans = cost[idx] + Math.min(oneStep,twoStep);
+    
+            dp[idx]=ans; 
+        }
+        return Math.min(dp[0],dp[1]);
+    }
+    public int minCost_tab_mostOptimized(int[] cost){
+        int n = cost.length;
+        int idxp1 = cost[n-1];
+        int idxp2 = 0;
+
+        for(int idx = n-2; idx>=0; idx--){
+            int ansIdx = cost[idx] + Math.min(idxp1,idxp2);
+
+            idxp2 = idxp1;
+            idxp1 = ansIdx;
+        }        
+        return Math.min(idxp1,idxp2);
+    }
+
+    public int minCostClimbingStairs(int[] cost) {
+        int n = cost.length;
+        // int startingWithZero = minCost_rec(cost,0);
+        // int startingWithOne = minCost_rec(cost,1);
+
+        // int startingWithZero = minCost_memo(cost,0,new int[n+1]);
+        // int startingWithOne = minCost_memo(cost,1,new int[n+1]);
+
+        return minCost_tab(cost,new int[n+1]);
+
+        // return Math.min(startingWithZero,startingWithOne);
+    }
+
+    // homework 
+
+    // https://www.codingninjas.com/codestudio/problems/maximum-sum-of-non-adjacent-elements_843261
     public static void main(String[] args) {
         
     }
