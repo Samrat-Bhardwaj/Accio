@@ -18,7 +18,7 @@ class Contest1 {
 		return ans;
     }
 
-
+    // https://course.acciojob.com/idle?question=7a818095-d72e-4347-94f3-2633473c62b8
     class Solution{
         public static int minAbsoluteDiff(int[] arr, int idx, ArrayList<Integer> set1, ArrayList<Integer> set2, int soset1,int soset2){
             if(idx==arr.length){
