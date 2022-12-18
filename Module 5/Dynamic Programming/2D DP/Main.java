@@ -256,11 +256,11 @@ public class Main {
 
     public static int isSubsetSum_memo(int idx, int[] arr, int target, int[][] dp){
         if(target == 0){
-            return dp[idx][target] = 1;
+            return dp[idx][target] = 1; // true
         }
 
         if(idx == arr.length){
-            return dp[idx][target] = 0; 
+            return dp[idx][target] = 0; // false
         }
 
         if(dp[idx][target]!=-1) return dp[idx][target];
@@ -315,6 +315,83 @@ public class Main {
 
     // homework 
     // https://www.codingninjas.com/codestudio/problems/total-unique-paths_1081470?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
+    
+    // coin change combinations ============================================ 
+    public long combination_rec(int[] coins, int idx, int tar){
+        if(tar==0){
+            return 1;
+        }
+
+        long ans = 0;
+        for(int j=idx; j<coins.length; j++){
+            if(tar - coins[j]>=0){
+                ans += combination_rec(coins, j, tar - coins[j]);
+            }
+        }
+
+        return ans;
+    }
+
+    public long combination_memo(int[] coins, int idx, int tar, long[][] dp){
+        if(tar==0){
+            return dp[idx][tar]=1;
+        }
+
+        if(dp[idx][tar]!=-1) return dp[idx][tar];
+
+        long ans = 0;
+        for(int j=idx; j<coins.length; j++){
+            if(tar - coins[j]>=0){
+                ans += combination_memo(coins, j, tar - coins[j],dp);
+            }
+        }
+
+        return dp[idx][tar]=ans;
+    }
+
+    // tabulation with 1D DP (TODO)
+
+    public long count(int coins[], int N, int target) {
+        long[][] dp = new long[N][target+1];
+        // for(long[] d:dp){
+        //     Arrays.fill(d,-1);
+        // }
+        // return combination_rec(coins,0,target);
+        // return combination_memo(coins, 0, target,dp);
+        return combination_tab(coins, 0, target, dp);
+    }
+
+
+    // homework
+    // https://www.codingninjas.com/codestudio/problems/triangle_1229398?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
+    
+    
+    // paint house 1 (https://course.acciojob.com/idle?question=b4cc8889-fe33-484b-975a-b0df4f8be951)
+    public int solve(int cost[][], int n) {
+        int[][] dp = new int[n][3];
+
+		for(int house=0; house<n; house++){
+			if(house==0){
+				dp[house][0]=cost[house][0];
+				dp[house][1]=cost[house][1];
+				dp[house][2]=cost[house][2];
+			} else {
+				dp[house][0] = cost[house][0] + Math.min(dp[house-1][1],dp[house-1][2]);
+				dp[house][1] = cost[house][1] + Math.min(dp[house-1][0],dp[house-1][2]);
+				dp[house][2] = cost[house][2] + Math.min(dp[house-1][0],dp[house-1][1]);
+			}
+		}
+
+		int ans = Integer.MAX_VALUE;
+		for(int color=0; color<3; color++){
+			ans = Math.min(ans,dp[n-1][color]);
+		}
+
+		return ans;
+    }
+
+    // homework => paint house with k colors
+    // https://www.lintcode.com/problem/516/
     public static void main(String[] args) {
         
     }
