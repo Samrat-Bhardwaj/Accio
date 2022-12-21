@@ -205,6 +205,56 @@ public class Main {
         }
         return ans;
     }
+
+    // russian doll envelopes ================================================== 
+    public int maxEnvelopes(int[][] envelopes) {
+        Arrays.sort(envelopes, (t, o)->{
+            return t[0] - o[0];
+        });
+
+        int n = envelopes.length;
+        int[] dp = new int[n];
+        int ans=0;
+
+        for(int i=0; i<n; i++){
+            dp[i] = 1;
+            for(int j=i-1; j>=0; j--){
+                if(envelopes[i][0]>envelopes[j][0] && envelopes[i][1] > envelopes[j][1]){
+                    dp[i] = Math.max(dp[i],dp[j]+1);
+                }
+            }
+
+            ans=Math.max(ans,dp[i]);
+        }
+
+        return ans;
+    }
+
+    // russian doll Better (O(NlogN)) ============
+    public int maxEnvelopes(int[][] envelopes) {
+        Arrays.sort(envelopes, (t, o)->{
+            if(t[0] == o[0]){ // if width is equal then larger height should be on top 
+                return o[1] - t[1];
+            }
+            return t[0] - o[0];
+        });
+
+        int n = envelopes.length;
+        ArrayList<Integer> dp = new ArrayList<>();
+
+        for(int i=0; i<n; i++){
+            int h = envelopes[i][1];
+
+            int pos = findPos(dp, h);
+            if(pos==dp.size()){
+                dp.add(h);
+            } else {
+                dp.set(pos,h);
+            }
+        }
+
+        return dp.size();
+    }
     public static void main(String[] args) {
         int[][] bridges = {{6,2},{4,3},{2,6},{1,5}};
         System.out.println(maxNonOverlappingBridges(bridges));
