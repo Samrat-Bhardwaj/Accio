@@ -198,6 +198,128 @@ public class Main {
         // return lps_rec(str,0,n-1);
         return lps_tab(str, 0, n-1, memo);
     }
+
+
+    // longest pallindromic subsequence with String as answer ==========
+
+    public static String lps_tabString(String str, int i, int j, int[][] dp){
+        int n = str.length();
+        String[][] sdp = new String[n][n];
+
+        for(int diag=0; diag<n; diag++){
+            for(i=0,j=diag; j<n; i++,j++){
+                if(i==j){
+                    dp[i][j] = 1;
+                    sdp[i][j] = str.charAt(i)+"";
+                    continue;
+                }
+        
+                if(str.charAt(i)==str.charAt(j)){
+                    if(i+1 == j){
+                        dp[i][j] = 2;
+                        sdp[i][j] = str.substring(i, i+2);
+                    } else {
+                        dp[i][j] = dp[i+1][j-1] + 2;//lps_memo(str, i+1, j-1,dp) + 2;
+                        sdp[i][j] = str.charAt(i) + sdp[i+1][j-1] + str.charAt(j);
+                    }
+                } else {
+                    // dp[i][j] = Math.max(dp[i][j-1],dp[i+1][j]); //Math.max(lps_memo(str,i,j-1,dp),lps_memo(str, i+1, j,dp));
+                    if(dp[i][j-1] > dp[i+1][j]){
+                        dp[i][j] = dp[i][j-1];
+                        sdp[i][j] = sdp[i][j-1];
+                    } else {
+                        dp[i][j] = dp[i+1][j];
+                        sdp[i][j] = sdp[i+1][j];
+                    }
+                }
+            }
+        }
+
+        return sdp[0][n-1];
+    }
+
+    String longestPalSubseq(String str){
+        int n = str.length();
+        int[][] dp = new int[n][n];
+        return lps_tabString(str, 0, n-1, dp);
+	}
+
+    // minimum insertions to make string pallindrome ============================== 
+    public static int minInsertions(String s) {
+        return s.length() - longestPalindromeSubseq(s);
+    }
+
+    // leetcode 72 (Edit distance )
+    public int minDistance_rec(int n, int m, String w1, String w2){
+        if(n==0 || m==0){
+            return n==0 ? m : n;
+        }
+
+        if(w1.charAt(n-1) == w2.charAt(m-1)){
+            return minDistance_rec(n-1,m-1,w1, w2);
+        } else {
+            int replace = minDistance_rec(n-1, m-1, w1, w2);
+            int delete = minDistance_rec(n-1, m, w1, w2);
+            int insert = minDistance_rec(n, m-1, w1, w2);
+
+            return Math.min(replace,Math.min(delete,insert)) + 1;
+        }
+
+    }
+
+    public int minDistance_memo(int n, int m, String w1, String w2,int[][] dp){
+        if(n==0 || m==0){
+            return dp[n][m] = n==0 ? m : n;
+        }
+
+        if(dp[n][m]!=-1) return dp[n][m];
+
+        if(w1.charAt(n-1) == w2.charAt(m-1)){
+            return dp[n][m] = minDistance_memo(n-1,m-1,w1, w2,dp);
+        } else {
+            int replace = minDistance_memo(n-1, m-1, w1, w2,dp);
+            int delete = minDistance_memo(n-1, m, w1, w2,dp);
+            int insert = minDistance_memo(n, m-1, w1, w2,dp);
+
+            return dp[n][m] = Math.min(replace,Math.min(delete,insert)) + 1;
+        }
+    }
+
+    public int minDistance_tab(int N, int M, String w1, String w2,int[][] dp){
+        for(int n=0; n<=N; n++){
+            for(int m=0; m<=M; m++){
+                if(n==0 || m==0){
+                    dp[n][m] = n==0 ? m : n;
+                    continue;
+                }
+        
+                if(w1.charAt(n-1) == w2.charAt(m-1)){
+                    dp[n][m] = dp[n-1][m-1]; //minDistance_memo(n-1,m-1,w1, w2,dp);
+                } else {
+                    int replace = dp[n-1][m-1]; //minDistance_memo(n-1, m-1, w1, w2,dp);
+                    int delete = dp[n-1][m]; //minDistance_memo(n-1, m, w1, w2,dp);
+                    int insert = dp[n][m-1]; //minDistance_memo(n, m-1, w1, w2,dp);
+        
+                    dp[n][m] = Math.min(replace,Math.min(delete,insert)) + 1;
+                }
+            }
+        }
+
+        return dp[N][M];
+    }
+
+    public int minDistance(String word1, String word2) {
+        int n = word1.length();
+        int m = word2.length();
+        
+        int[][] memo = new int[n+1][m+1];
+        return minDistance_tab(n, m, word1, word2, memo);
+        // for(int[] d:memo){
+        //     Arrays.fill(d,-1);
+        // }
+        // return minDistance_memo(n, m,word1,word2,memo);
+        // return minDistance_rec(n, m,word1,word2);
+    }
     public static void main(String[] args) {
         
     }
