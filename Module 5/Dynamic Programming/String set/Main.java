@@ -131,6 +131,73 @@ public class Main {
 
         return n + m - 2*lcs;
     }
+
+    // longest pallindromic subsequence =============================
+    public static int lps_rec(String str, int i, int j){
+        if(i==j){
+            return 1;
+        }
+
+        if(str.charAt(i)==str.charAt(j)){
+            if(i+1 == j){
+                return 2;
+            } else {
+                return lps_rec(str, i+1, j-1) + 2;
+            }
+        } else {
+            return Math.max(lps_rec(str,i,j-1),lps_rec(str, i+1, j));
+        }
+    }
+
+    public static int lps_memo(String str, int i, int j,int[][] dp){
+        if(i==j){
+            return dp[i][j] = 1;
+        }
+
+        if(dp[i][j]!=0) return dp[i][j];
+
+        if(str.charAt(i)==str.charAt(j)){
+            if(i+1 == j){
+                return dp[i][j] = 2;
+            } else {
+                return dp[i][j] = lps_memo(str, i+1, j-1,dp) + 2;
+            }
+        } else {
+            return dp[i][j] = Math.max(lps_memo(str,i,j-1,dp),lps_memo(str, i+1, j,dp));
+        }
+    }
+
+    public static int lps_tab(String str, int i, int j, int[][] dp){
+        int n = str.length();
+        for(int diag=0; diag<n; diag++){
+            for(i=0,j=diag; j<n; i++,j++){
+                if(i==j){
+                    dp[i][j] = 1;
+                    continue;
+                }
+        
+                if(str.charAt(i)==str.charAt(j)){
+                    if(i+1 == j){
+                        dp[i][j] = 2;
+                    } else {
+                        dp[i][j] = dp[i+1][j-1] + 2;//lps_memo(str, i+1, j-1,dp) + 2;
+                    }
+                } else {
+                    dp[i][j] = Math.max(dp[i][j-1],dp[i+1][j]); //Math.max(lps_memo(str,i,j-1,dp),lps_memo(str, i+1, j,dp));
+                }
+            }
+        }
+
+        return dp[0][n-1];
+    }
+
+    public static int longestPalindromeSubseq(String str) {
+        int n = str.length();
+        int[][] memo = new int[n][n];
+        // return lps_memo(str,0,n-1,memo);
+        // return lps_rec(str,0,n-1);
+        return lps_tab(str, 0, n-1, memo);
+    }
     public static void main(String[] args) {
         
     }
