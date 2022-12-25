@@ -255,6 +255,43 @@ public class Main {
 
         return dp.size();
     }
+
+    // leetcode 1691 ==================================================== 
+    // box stacking
+
+    public int maxHeight(int[][] cuboids) {
+        for(int[] cuboid:cuboids){
+            Arrays.sort(cuboid); // so that my height is maximum
+        }
+
+        int n = cuboids.length;
+        Arrays.sort(cuboids,(t,o)->{
+            if(t[0]!=o[0]){ // if width not equal, smaller width previous 
+                return t[0] - o[0];
+            }
+
+            if(t[1]!=o[1]){ // width equal, if lenght, smaller length before
+                return t[1] - o[1];
+            }
+
+            return t[2] - o[2]; // width equal, length equal, sort on the basis of height
+        });
+
+        int[] dp = new int[n];
+        int ans = 0;
+        for(int i=0; i<n; i++){
+            dp[i] = cuboids[i][2]; // height
+
+            for(int j=i-1; j>=0; j--){
+                if(cuboids[i][0] >= cuboids[j][0] && cuboids[i][1] >= cuboids[j][1] && cuboids[i][2] >= cuboids[j][2]){
+                    dp[i] = Math.max(dp[j]+cuboids[i][2],dp[i]);
+                }
+            }
+            ans = Math.max(ans,dp[i]);
+        }
+
+        return ans;
+    }
     public static void main(String[] args) {
         int[][] bridges = {{6,2},{4,3},{2,6},{1,5}};
         System.out.println(maxNonOverlappingBridges(bridges));
