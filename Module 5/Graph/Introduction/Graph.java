@@ -18,6 +18,7 @@ public class Graph {
     }
 
     static int N = 7; // number of vertex 
+    @SuppressWarnings("unchecked")
     static ArrayList<Edge>[] graph = new ArrayList[N];
     
     public static void constructGraph(){
@@ -67,13 +68,30 @@ public class Graph {
         return ans;
     }
 
-    public static boolean allPaths(int src, int des, boolean[] vis, String psf, int wsf){
-        
+    public static void allPaths(int src, int des, boolean[] vis, String psf, int wsf){
+        if(src==des){
+            System.out.println(psf+ des +"@"+wsf);
+            return;
+        }
+
+        vis[src] = true;
+        for(Edge e: graph[src]){
+            int nbr = e.v;
+            if(!vis[nbr]){
+                allPaths(nbr, des, vis, psf+src, wsf+e.w);
+            }
+        }
+
+        vis[src] = false;
     }
+
+    // homework ===========================
+    // https://course.acciojob.com/idle?question=ad1abf35-aa2c-4f0f-8fa3-46b85e164e4c
 
     public static void main(String[] args) {
         constructGraph();
         // printGraph();
-        System.out.println(hasPath(0, 6, new boolean[N]));
+        // System.out.println(hasPath(0, 6, new boolean[N]));
+        allPaths(0, 6,new boolean[N], "", 0);
     }    
 }
