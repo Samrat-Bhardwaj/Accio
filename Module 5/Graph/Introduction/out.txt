@@ -1,14 +1,4 @@
-Edge is from 0 to 1 with a weight of 2
-Edge is from 0 to 2 with a weight of 3
-Edge is from 1 to 0 with a weight of 2
-Edge is from 1 to 3 with a weight of 1
-Edge is from 2 to 0 with a weight of 3
-Edge is from 2 to 3 with a weight of 4
-Edge is from 3 to 1 with a weight of 1
-Edge is from 3 to 2 with a weight of 4
-Edge is from 3 to 4 with a weight of 7
-Edge is from 4 to 3 with a weight of 7
-Edge is from 4 to 5 with a weight of 3
-Edge is from 5 to 4 with a weight of 3
-Edge is from 5 to 6 with a weight of 9
-Edge is from 6 to 5 with a weight of 9
+This is a hamiltonian path 0123456
+This is a hamiltonian path 0123465
+This is a hamiltonian cycle 0125643
+This is a hamiltonian cycle 0346521

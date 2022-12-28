@@ -63,6 +63,80 @@ public class Questions {
 
       visited[src] = false;
    }
+
+   // homework ===========================
+    // https://course.acciojob.com/idle?question=ad1abf35-aa2c-4f0f-8fa3-46b85e164e4c
+    boolean hasPath(int src, int des, ArrayList<Integer>[] graph, boolean[] vis){
+        if(src == des){
+            return true;
+        }
+
+        boolean ans = false;
+        vis[src]= true;
+        for(int nbr: graph[src]){
+            if(!vis[nbr]){
+                ans = ans || hasPath(nbr, des, graph, vis);
+            }
+        }
+
+        vis[src] = false;
+        return ans;
+    }
+
+    boolean check(int N, int M, ArrayList<ArrayList<Integer>> Edges,int U,int V) {
+        // N vertices, M edges
+        ArrayList<Integer>[] graph = new ArrayList[N];
+        for(int i=0; i<N; i++){
+            graph[i] = new ArrayList<>();
+        }
+
+        for(ArrayList<Integer> edge:Edges){
+            int u = edge.get(0);
+            int v = edge.get(1);
+
+            graph[u-1].add(v-1);
+        }
+
+        return hasPath(U-1, V-1, graph, new boolean[N]) || hasPath(V-1, U-1, graph,new boolean[N]);
+    }
+
+    public static int getSize(int src, boolean[] vis, ArrayList<Edge>[] graph){
+        vis[src]= true;
+
+        int ans = 0;
+        for(Edge e: graph[src]){
+            int nbr = e.nbr;
+            if(vis[nbr]==false){
+                int nbrSize = getSize(nbr, vis, graph);
+                ans += nbrSize;
+            }
+        }
+
+        return ans + 1;
+    }
+    public static int perfectStudents(int vtces,  ArrayList<Edge>[] graph){
+        ArrayList<Integer> components = new ArrayList<>();
+
+        boolean[] visited = new boolean[vtces];
+        for(int i=0; i<vtces; i++){
+            if(visited[i]==false){
+                int size  = getSize(i,visited,graph);
+                components.add(size);
+            }
+        }
+
+        int pairs=0;
+        for(int i=0; i<components.size(); i++){
+            int s1 = components.get(i);
+            for(int j=i+1; j<components.size(); j++){
+                int s2 = components.get(j);
+                pairs = pairs +(s1*s2);
+            }
+        }
+
+        return pairs;
+    }
+
     public static void main(String[] args) {
         
     }    

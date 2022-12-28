@@ -26,13 +26,15 @@ public class Graph {
             graph[i] = new ArrayList<>();
         }
 
-        addEdge(0,1,2);
-        addEdge(0, 2, 3);
-        addEdge(1, 3, 1);
-        addEdge(2, 3, 4);
-        addEdge(3, 4, 7);
-        addEdge(4, 5, 3);
-        addEdge(5, 6, 9);
+        addEdge(0,1,10);
+        addEdge(0, 3, 40);
+        addEdge(1, 2, 10);
+        addEdge(2, 3, 10);
+        addEdge(3, 4, 2);
+        addEdge(2, 5, 5);
+        addEdge(5, 4, 3);
+        addEdge(5, 6, 3);
+        addEdge(4, 6, 3);
     }
 
     public static void addEdge(int u, int v, int w){
@@ -85,13 +87,70 @@ public class Graph {
         vis[src] = false;
     }
 
-    // homework ===========================
-    // https://course.acciojob.com/idle?question=ad1abf35-aa2c-4f0f-8fa3-46b85e164e4c
+    // number of components ====================================================== 
+    public static void dfs(int src, boolean[] vis){
+        vis[src]= true;
 
+        for(Edge e: graph[src]){
+            int nbr = e.v;
+            if(!vis[nbr]){
+                dfs(nbr, vis);
+            }
+        }
+    }
+
+    public static int numberOfComponents(){
+        boolean[] visited = new boolean[N];
+        int count=0;
+
+        for(int i=0; i<N; i++){
+            if(visited[i]==false){
+                dfs(i,visited);
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    // hamiltonian path and hamiltonian cycle ==============================================================
+
+    public static void hamiltonianPathCycle(int osrc, int src, boolean[] vis, int edgeCount, String psf){
+        if(edgeCount == N-1){
+            if(checkifEdgeExist(src,osrc)){
+                System.out.println("This is a hamiltonian cycle "+psf);
+            } else {
+                System.out.println("This is a hamiltonian path "+psf);
+            }
+            return;
+        }
+
+        vis[src] = true;
+
+        for(Edge e: graph[src]){
+            int nbr = e.v;
+            if(!vis[nbr]){
+                hamiltonianPathCycle(osrc, nbr, vis, edgeCount + 1, psf+nbr);
+            }
+        }
+
+        vis[src] = false;
+    }
+
+    public static boolean checkifEdgeExist(int u, int v){
+        for(Edge e:graph[u]){
+            if(e.v == v){
+                return true;
+            }
+        }
+
+        return false;
+    }
     public static void main(String[] args) {
         constructGraph();
         // printGraph();
         // System.out.println(hasPath(0, 6, new boolean[N]));
-        allPaths(0, 6,new boolean[N], "", 0);
+        // allPaths(0, 6,new boolean[N], "", 0);
+        hamiltonianPathCycle(0, 0,new boolean[N], 0, "0");
     }    
 }
