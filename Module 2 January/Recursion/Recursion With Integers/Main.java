@@ -41,10 +41,49 @@ class Main {
         int ans = smallAns * x;
         return ans;
     }
+
+    public static int power2(int x, int n){
+        if(n==0){
+            return 1;
+        }
+        int smallAns = power2(x, n/2);
+        int ans = smallAns * smallAns;
+
+        if(n%2 != 0){
+            ans = ans*x;
+        }
+
+        return ans;
+    }
+
+    public static void towerOfHanoi(int n, int A, int B, int C){
+        if(n==0){
+            return;
+        }
+
+        towerOfHanoi(n-1, A, C, B);
+        // move nth disc from A to b
+        System.out.println("Moving ring " + n + "from" + A + " to " + B + " using " + C);
+        towerOfHanoi(n-1, C, B, A);
+    }
+
+    // portal 
+    static void TOH(int n, char A, char B, char C){
+		if(n==0){
+			return;
+		}
+
+		TOH(n-1,A,C,B);
+		System.out.println("Moving ring " + n + " from " + A + " to " + B);
+		TOH(n-1,C,B,A);
+	}
+	
+    static void towersOfHanoi(int n, char source, char dest) {
+      TOH(n,source,dest,'C');
+    }
+
     public static void main(String[] args) {
-        int x = 2;
-        int n = 4;
-        int ans = power(x,n);
-        System.out.println(ans);
+       int n = 3;
+       towerOfHanoi(n, 10, 20, 30);
     }
 }
