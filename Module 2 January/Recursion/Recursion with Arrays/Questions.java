@@ -49,7 +49,7 @@ public class Questions {
         if(idx == arr.length){
             return -1;
         }
-        
+
         int smallAns = lastIndex(arr, idx+1, tar); 
 
         int ans = 0;
@@ -65,8 +65,32 @@ public class Questions {
 
         return ans;
     }
+
+    public static int[] allIndices(int[] arr, int idx,int tar, int count){
+        if(idx==arr.length){
+            int[] ba = new int[count];
+            return ba; 
+        }
+
+        int[] ans;
+        if(arr[idx]==tar){
+            ans = allIndices(arr, idx+1, tar, count+1);
+        } else {
+            ans = allIndices(arr, idx+1, tar, count);
+        }
+
+        if(arr[idx]==tar){
+            ans[count] = idx;
+        }
+
+        return ans;
+    }
     public static void main(String[] args) {
-        int[] arr = {10,9,4,11,20};
-        System.out.println(maxofArray(arr,0));
+        int[] arr = {9,3,7,3,3,5,3,6};
+        int[] ans = allIndices(arr, 0, 3, 0);
+
+        for(int i=0; i<ans.length; i++){
+            System.out.println(ans[i]);
+        }
     }
 }
