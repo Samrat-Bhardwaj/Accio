@@ -82,6 +82,35 @@ class Main {
       TOH(n,source,dest,'C');
     }
 
+    // fibonacci number 
+    public static int fib(int n){
+        if(n==0){
+            return 0;
+        }
+        if(n==1){
+            return 1;
+        }
+        int lt = fib(n-1);
+        int lst = fib(n-2);
+
+        int ans = lt + lst;
+        return ans;
+    }
+
+    public static long even_fib(int n){
+        if(n==0){
+            return 0;
+        }
+        if(n==1){
+            return 2;
+        }
+        long mod = (long)1e9 + 7;
+        long lastEven = even_fib(n-1);
+        long lastSecondEven = even_fib(n-2);
+
+        long ans = 4*lastEven + lastSecondEven;
+        return ans%mod;
+    }
     public static void main(String[] args) {
        int n = 3;
        towerOfHanoi(n, 10, 20, 30);

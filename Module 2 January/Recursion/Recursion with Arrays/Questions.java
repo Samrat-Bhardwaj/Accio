@@ -85,6 +85,20 @@ public class Questions {
 
         return ans;
     }
+
+    // check for pallindrome 
+    public static boolean isPalindromic(int[] arr, int si, int ei) {
+        if(si>ei){
+            return true;
+        }
+
+        if(arr[si]!=arr[ei]){
+            return false;
+        }
+
+        boolean ans = isPalindromic(arr, si + 1, ei - 1);
+        return ans;
+    }
     public static void main(String[] args) {
         int[] arr = {9,3,7,3,3,5,3,6};
         int[] ans = allIndices(arr, 0, 3, 0);
