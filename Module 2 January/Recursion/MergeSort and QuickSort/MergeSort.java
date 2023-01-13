@@ -69,7 +69,7 @@ class MergeSort {
             k++;
         }
 
-        
+
         k=0;
         for(int idx = si; idx<=ei; idx++,k++){
             arr[idx] = ans[k];
