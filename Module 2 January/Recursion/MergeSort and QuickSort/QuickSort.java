@@ -1,3 +1,4 @@
+import java.util.Arrays;
 public class QuickSort {
     public static void swap(int[] arr, int i, int j){
         int temp = arr[i];
@@ -47,12 +48,13 @@ public class QuickSort {
         quickSort(arr, pidx + 1, ei);
     }
     public static void main(String[] args) {
-        int[] arr = {4,1,3,9,7};
+        int[] arr = {9,12,5,10,14,3,10};
 
-        // partition(arr, 2);
-        quickSort(arr, 0, arr.length-1);
-        for(int i=0; i<arr.length; i++){
-            System.out.print(arr[i]+" ");
-        }
+        partition(arr, 10);
+        System.out.println(Arrays.toString(arr));
+        // quickSort(arr, 0, arr.length-1);
+        // for(int i=0; i<arr.length; i++){
+        //     System.out.print(arr[i]+" ");
+        // }
     }
 }

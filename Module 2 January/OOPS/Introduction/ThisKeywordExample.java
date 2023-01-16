@@ -4,8 +4,7 @@ class Student {
     
     public void fun(int age){
         this.age++;
-        System.out.println(age);
-        System.out.println(this.age);
+        // this.fun();
     }
 
     public Student(String name, int age){
@@ -17,9 +16,9 @@ public class ThisKeywordExample {
     public static void main(String[] args) {
         Student s1 = new Student("Accio",23);
 
-        // s1.fun(-100);
+        s1.fun(100);
 
-        // System.out.println(s1.age);
-        System.out.println(s1.name+" "+s1.age);
+        System.out.println(s1.age);
+        // System.out.println(s1.name+" "+s1.age);
     }
 }
