@@ -24,10 +24,11 @@ class Car extends Vechile { // child class / sub class
 }
 
 class Bike extends Vechile {
+    int maxSpeed;
+
     public Bike(){
         System.out.println("Bike constructor");
     }
-    int maxSpeed;
 }
 
 public class Main {
