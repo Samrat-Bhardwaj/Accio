@@ -22,11 +22,15 @@ class Car {
 }
 
 public class Main { 
-    // class Student { //why we need to define this class as static
-    //     int a;
-    // }
+    class Student { //why we need to define this class as static
+        int a;
+    }
+
+    public void fun(){
+        Student s1 = new Student();  // this is possible 
+    }
     public static void main(String[] args) {
-       //Student s1 = new Student(); // why this is not possible
+    //    Student s1 = new Student(); // this is not possible
 
         Car c1 = new Car(); // and this is possible
         c1.color= "blue";
