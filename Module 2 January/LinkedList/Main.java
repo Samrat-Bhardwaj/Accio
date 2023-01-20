@@ -12,8 +12,19 @@ class Node {
 }
 
 public class Main {
-    static Node head;
-    static Node tail;
+    static Node head = null;
+    static Node tail = null;
+
+    public static void removeFirst(){
+        if(head==null){
+            System.out.println("LinkedList is empty, not possible to remove first");
+        } else if(head == tail){
+                   
+        } else {
+            Node nextOfHead = head.next;
+            head = nextOfHead;
+        }
+    }
 
     public static void addLast(int value){
         Node nn = new Node(value);
@@ -27,24 +38,28 @@ public class Main {
         }
     }
 
-    public static void printLinkedList(Node n1){
-        Node curr = n1;
+    public static void printLinkedList(){
+        Node curr = head;
 
         while(curr!=null){
-            System.out.println(curr.data);
+            System.out.print(curr.data+" ");
             
             Node nextNode = curr.next;
             curr = nextNode;
         }
+
+        System.out.println();
     }
     public static void main(String[] args) {
-        head = null;
-        tail = null;
        
         addLast(5);
         addLast(7);
         addLast(11);
 
-        printLinkedList(head);
+        printLinkedList();
+        for(int i=0; i<=3; i++){
+            removeFirst();
+            printLinkedList();
+        }
     }    
 }
