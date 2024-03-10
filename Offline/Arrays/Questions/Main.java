@@ -1,6 +1,77 @@
 import java.util.Scanner;
 
 public class Main {
+
+    public static int[] calSum(int a1[], int a2[], int n, int m) {
+        int res_size = Math.max(n,m) + 1;
+
+        int[] res = new int[res_size];
+
+        int i= n - 1;
+        int j = m - 1;
+        int k = res_size - 1;
+        int carry = 0;
+
+        while(k>=0){
+            int csum = 0;
+            if(i>=0){
+                csum += a1[i];
+            }
+            if(j>=0){
+                csum += a2[j];
+            }
+
+            csum+= carry;
+
+            if(csum>9){
+                carry = 1;
+                csum = csum%10;
+            }
+            
+            res[k] = csum;
+
+            i--;
+            j--;
+            k--;
+        }
+
+        return res;
+    }
+
+    // https://course.acciojob.com/idle?question=cdcb9e4d-fa09-4b0c-9e8e-2c23a7cf92ac
+    public static void buildings(int[] arr, int n) {
+        int max = Integer.MIN_VALUE;
+        for(int ele: arr){
+            // if(ele > max){
+            //     max = ele;
+            // }
+            max = Math.max(max,ele);
+        }
+
+        int current_number_of_line = max; // 9
+
+        while(current_number_of_line > 0){
+            // work
+            for(int pos=0; pos<n; pos++){
+                int pos_height = arr[pos];
+
+                if(current_number_of_line <= pos_height){
+                    System.out.print("*\t");
+                } else {
+                    System.out.print("\t");
+                }
+            }
+
+            // prepare for next line
+            System.out.println();
+            current_number_of_line--;
+        }
+    }
+
+
+
+
+
     public static void swap(int[] arr, int si, int ei){
         int value_at_si = arr[si];
         int value_at_ei = arr[ei];
