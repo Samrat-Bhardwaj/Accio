@@ -2,6 +2,89 @@ import java.util.Scanner;
 
 public class Main {
 
+public static void reverse(int[] nums, int si, int ei){
+    while(si<=ei){
+        int temp = nums[si];
+        nums[si] = nums[ei];
+        nums[ei] = temp;
+
+        si++;
+        ei--;
+    }
+}
+
+public static void rotateArray(int[] nums, int k) {
+    int n = nums.length;
+
+    k = k%n; 
+
+    if(k<0){
+        k = k + n;
+    }
+
+    // k -> {0,n-1};
+    reverse(nums,0,n-k-1); // left part reverse
+    reverse(nums,n-k,n-1); // right part reverse
+
+    reverse(nums,0,n-1); // whole array reverse
+}
+
+// Kadane's algorithm ====================================
+public static int maxSubArraySum(int arr[]) {
+    int max_sum = 0;
+    int csum = 0;
+
+    for(int i=0; i<arr.length; i++){
+        csum += arr[i];
+
+        if(csum < 0){
+            csum = 0;
+        }
+
+        // msum = Math.max(msum, csum);
+        if(max_sum < csum){
+            max_sum = csum;
+        }
+    }
+
+    return max_sum;
+}
+
+// what's the SP and EP of the max subArray (HomeWork)
+
+
+
+// subarray sum divisble by k
+public static boolean subarraySumDivisbleByK(int[] arr, int sp, int ep, int k){
+    int sum = 0;
+
+    int i = sp;
+    while(i<=ep){
+        sum += arr[i];
+        i++;
+    }
+
+    return (sum%k == 0);;
+}
+
+public static int subarrayDivisbleByK(int arr[], int n, int k){
+    int ans = 0;
+    for(int sp = 0; sp<n; sp++){
+        int sum = 0;
+        for(int ep = sp; ep<n; ep++){
+            // subarray from sp to ep
+            // check if array from sp to ep is divisible by k
+            sum += arr[ep];
+            if(sum%k == 0){
+                ans++;
+            }
+        }
+    }
+
+    return ans;
+}
+
+
 static boolean swap = false;
 public static int[] subtract(int[] a1, int[] a2) {
     if(a1.length < a2.length){
