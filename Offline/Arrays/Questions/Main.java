@@ -2,6 +2,66 @@ import java.util.Scanner;
 
 public class Main {
 
+static boolean swap = false;
+public static int[] subtract(int[] a1, int[] a2) {
+    if(a1.length < a2.length){
+        // swapping a1 and a2 addresses
+        int[] temp = a1;
+        a1 = a2;
+        a2 = temp;
+        swap = true;
+    }
+
+    int n = a1.length; 
+    int m = a2.length; 
+
+    int[] res = new int[n];
+    int i = n-1;
+    int j = m-1;
+    int k = res.length - 1;
+    int borrow = 0;
+
+    while(k>=0){
+        if(borrow == 1){
+            a1[i]--; // this is wrong
+            borrow = 0;
+        }
+
+        if(a1[i] < 0){
+            a1[i] += 10;
+            borrow = 1;
+        }
+
+        if(j<0){
+            res[k] = a1[i]; 
+        } else if(a1[i] >= a2[j]){
+            res[k] = a1[i] - a2[j];
+        } else {
+            res[k] = (a1[i] + 10) - a2[j];
+            borrow = 1;
+        }
+        i--;
+        j--;
+        k--;
+    }
+    return res;
+}
+
+    public static int ArrayProblem(int []arr,int k){
+        int count = 0;
+        int n = arr.length;
+
+        for(int i=0; i<n-1; i++){
+            int csum = arr[i] + arr[i+1];
+
+            if(csum == k){
+                count++;
+            }
+        }
+
+        return count;
+    }
+
     public static int[] calSum(int a1[], int a2[], int n, int m) {
         int res_size = Math.max(n,m) + 1;
 
@@ -26,8 +86,10 @@ public class Main {
             if(csum>9){
                 carry = 1;
                 csum = csum%10;
+            } else {
+                carry = 0;
             }
-            
+
             res[k] = csum;
 
             i--;
@@ -193,21 +255,26 @@ public class Main {
 
 
     public static void main(String[] args) {
-        Scanner scn = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
+        int n1 = sc.nextInt();
+        int[] arr1 = new int[n1];
+        for (int i = 0; i < n1; i++) arr1[i] = sc.nextInt();
 
-        int n = scn.nextInt();
-        int[] arr = new int[n];
+        int n2 = sc.nextInt();
+        int[] arr2 = new int[n2];
+        for (int i = 0; i < n2; i++) arr2[i] = sc.nextInt();
+        sc.close();
 
-        for(int i=0; i<n; i++){
-            int input = scn.nextInt();
-            arr[i] = input;
+        int[] res = calSum(arr1, arr2, n1, n2);
+
+        if(res[0]==0){
+            for(int i=1; i<res.length; i++){
+                System.out.println(res[i]);
+            }
+        } else {
+            for(int i=0; i<res.length; i++){
+                System.out.println(res[i]);
+            }
         }
-
-        int sum = 0;
-        for(int i=0; i<arr.length; i++){
-            sum = sum + arr[i];
-        }
-
-        System.out.println(sum);
     }
 }
