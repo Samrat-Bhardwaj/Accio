@@ -2,6 +2,39 @@ import java.util.Scanner;
 
 public class Main {
 
+public static int BinarySearch(int[] nums, int tar){
+    int n = nums.length;
+
+    int left = 0;
+    int right = n-1;
+
+    while(left <= right){
+        int mid = (left + right)/2;
+
+        if(arr[mid] == tar){
+            return mid;
+        } else if(arr[mid] < tar){
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+
+    return -1;
+}
+// search in array
+public static int search(int[] nums, int tar){
+    int n = nums.length;
+
+    for(int i=0; i<n; i++){
+        if(nums[i] == tar){
+            return i;
+        }
+    }
+
+    return -1;
+}
+
 public static void reverse(int[] nums, int si, int ei){
     while(si<=ei){
         int temp = nums[si];
@@ -23,10 +56,10 @@ public static void rotateArray(int[] nums, int k) {
     }
 
     // k -> {0,n-1};
+    reverse(nums,0,n-1); // whole array reverse
+
     reverse(nums,0,n-k-1); // left part reverse
     reverse(nums,n-k,n-1); // right part reverse
-
-    reverse(nums,0,n-1); // whole array reverse
 }
 
 // Kadane's algorithm ====================================
@@ -83,7 +116,7 @@ public static int subarrayDivisbleByK(int arr[], int n, int k){
 
     return ans;
 }
-
+image.png
 
 static boolean swap = false;
 public static int[] subtract(int[] a1, int[] a2) {
