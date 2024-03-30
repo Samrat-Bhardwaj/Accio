@@ -1,5 +1,108 @@
 class Main {
 
+public static boolean special(int matrix[][], int n){
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            if(i==j || i+j == n-1){ // non-zero
+                if(matrix[i][j] == 0) return false;
+            } else { // zero
+                if(matrix[i][j] != 0) return false;
+            }
+        }
+    }
+}
+
+// Maxima Minima
+public static boolean checkIfLargest(int[][] mat, int min_col, int min){
+    int max = Integer.MIN_VALUE;
+    for(int i=0; i<mat.length; i++){
+        if(mat[i][min_col] > max){
+            max = mat[i][min_col];
+        }
+    }
+
+    return max == min;
+}
+
+public static int maximaMinima(int[][] mat) {
+    int n = mat.length;
+    int m = mat[0].length;
+
+    for(int i=0; i<n; i++){
+        int min = Integer.MAX_VALUE;
+        int min_col = -1;
+
+        for(int j=0; j<m; j++){
+            if(mat[i][j] < min){
+                min = mat[i][j];
+                min_col = j;
+            }
+        }
+
+        if(checkIfLargest(mat,min_col,min) == true){
+            return min;
+        }
+    }
+
+    return -1;
+}
+
+// leetcode 74 =====================================
+public boolean searchMatrix(int[][] matrix, int target) {
+    int n = matrix.length;
+    int m = matrix[0].length;
+
+    int row = 0;
+    int col = m-1;
+
+    while(row<n && col>=0){
+        if(matrix[row][col] < target){
+            row++;
+        } else if(matrix[row][col] > target){
+            col--;
+        } else {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+// find the way =============== 
+public static int[] findTheWay(int[][] matrix) {
+    int n = matrix.length;
+    int m = matrix[0].length;
+
+    int row = 0;
+    int col = 0;
+    int dir = 0;
+    
+    while(row>=0 && col>=0 && row<n && col<m){
+        if(matrix[row][col] == 1){ // dir change
+            dir = (dir + 1) % 4;
+        }
+
+        if(dir == 0){ // right
+            col++;
+        } else if(dir == 1){ // down
+            row++;
+        } else if(dir == 2){ // left
+            col--;
+        } else { // up
+            row--;
+        }
+    }
+
+    if(row == -1) row++;
+    if(col == -1) col++;
+    if(row == n) row--;
+    if(col == m) col--;
+
+    return new int[]{row,col};
+}
+
+
+
 public void reverseArray(int[] smallArray){
     int si = 0;
     int ei = smallArray.length - 1;
