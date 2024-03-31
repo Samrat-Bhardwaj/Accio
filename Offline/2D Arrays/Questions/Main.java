@@ -1,15 +1,56 @@
 class Main {
 
+public static void spiralMatrix2(int[][] mat, int n, int m) {
+    int sr = 0;
+    int sc = 0;
+    int er = n-1;
+    int ec = m-1;
+
+    int row = -1; 
+    int col = -1;
+
+    while(sr<=er && sc<=ec){
+        // start col
+        col = sc;
+        for(row=sr; row<=er && sc<=ec; row++){
+            System.out.print(mat[row][col]+" ");
+        }
+        sc++;
+
+        // end row
+        row = er;
+        for(col=sc; col<=ec && sr<=er; col++){
+            System.out.print(mat[row][col]+" ");
+        }
+        er--;
+
+        // end col
+        col = ec;
+        for(row=er; row>=sr && sc<=ec; row--){
+            System.out.print(mat[row][col]+" ");
+        }
+        ec--;
+
+        // start row
+        row = sr;
+        for(col=ec; col>=sc && sr<=er; col--){
+            System.out.print(mat[row][col]+" ");
+        }
+        sr++;
+    }
+}
+
 public static boolean special(int matrix[][], int n){
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
-            if(i==j || i+j == n-1){ // non-zero
+            if(i==j || i+j == n-1){ // non-zero, diagonal ele
                 if(matrix[i][j] == 0) return false;
-            } else { // zero
+            } else { // zero, non- diagonal
                 if(matrix[i][j] != 0) return false;
             }
         }
     }
+    return true;
 }
 
 // Maxima Minima
