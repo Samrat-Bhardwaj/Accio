@@ -2,6 +2,47 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 class Main {
+    // distinct ====================
+    public static int 3sum(int[] arr, int target){
+        int n = arr.length;
+        int ans = 0;
+
+        for(int i=0; i<n; i++){
+            if(i-1>=0 && arr[i-1] == arr[i]){
+                continue;
+            }
+            int first_ele = arr[i];
+            int target_left = target - arr[i];
+
+            int twoSumPairs = twoSumBetweenIndices(arr, target_left, i+1, n-1);
+            ans += twoSumPairs;
+        }
+        return ans;
+    }
+
+    public static int twoSumBetweenIndices(int[] arr, int target, int left, int right){
+        int number_of_pairs = 0;
+        
+        while(left < right){
+            int csum = arr[left] + arr[right];
+
+            if(csum < target){
+                left++;
+            } else if(csum > target){
+                right--;
+            } else {
+                number_of_pairs++;
+                int curr_ele = arr[right];
+
+                while(left<right && arr[right] == curr_ele){
+                    right--;
+                }
+            }
+        }
+
+        return number_of_pairs;
+    }
+
     // two sum ========================
     public static int twoSum(int[] arr, int target){
         int n = arr.length;
