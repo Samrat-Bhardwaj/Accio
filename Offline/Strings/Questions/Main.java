@@ -1,5 +1,115 @@
 class Main {
-    // 
+    public static void ptice(int n, String ansKey) {
+        String adrian = "ABC";
+        String bruno = "BABC";
+        String gopal = "CCAABB";
+
+        int adrianScore = 0;
+        int brunoScore = 0;
+        int gopalScore = 0;
+
+        for(int i=0; i<ansKey.length(); i++){
+            char currentAns = ansKey.charAt(i);
+
+            if(currentAns == adrian.charAt(i%3)){
+                adrianScore++;
+            }
+
+            if(currentAns == bruno.charAt(i%4)){
+                brunoScore++;
+            }
+
+            if(currentAns == gopal.charAt(i%6)){
+                gopalScore++;
+            }
+        }
+
+        // int maxScore = Math.max(adrianScore, Math.max(brunoScore, gopalScore));
+        int maxScore = 0;
+        if(adrianScore > brunoScore && adrianScore > gopalScore){
+            maxScore = adrianScore;
+        } else if(brunoScore > gopalScore){ // adrianScore is not maximum
+            maxScore = brunoScore;
+        } else {
+            maxScore = gopalScore;
+        }
+
+        System.out.println(maxScore);
+
+        if(maxScore == adrianScore){
+            System.out.println("Adrian");
+        }
+        if(maxScore == brunoScore){
+            System.out.println("Bruno");
+        } 
+        if(maxScore == gopalScore){
+            System.out.println("Goran");
+        }
+    }
+    public static char MaximumFrequencyChar(String str) {
+        int[] fre = new int[26];
+        
+        for(int i=0; i<str.length(); i++){
+            char ch = str.charAt(i);
+
+            int idx = ch - 'a';
+            fre[idx] = fre[idx] + 1;
+        }
+
+        int maxFre = 0;
+        char maxFreChar = '$';
+
+        for(int i=0; i<26; i++){
+            if(fre[i] > maxFre){
+                maxFre = fre[i];
+                maxFreChar = (char)(i + 'a');
+            }
+        }
+
+        return maxFreChar;
+    }
+    public static String reverseWords(String str){ // how are you
+        String[] sarr = str.split(" "); // {"how", "are", "you"}
+        int n = sarr.length; // number of words
+
+        String res = "";
+
+        for(int i=n-1; i>=0; i--){
+            res += sarr[i];
+            res += " ";
+        }
+
+        return res;
+    }
+
+    // print all substrings  ================================== 
+    public static String getSubstr(String str, int si, int ei){
+        String ans = "";
+
+        int i = si;
+        while(i<=ei){
+            char ch = str.charAt(i);
+            ans += ch;
+            i++;
+        }
+
+        return ans;
+    }
+
+    public static void SubString(String str) {
+        int n = str.length();
+
+        for(int i=0; i<n; i++){
+            String substr = "";
+            for(int j=i; j<n; j++){
+                // get the substring starting at ith index and ending at jth index
+                substr += str.charAt(j); // O(n)
+                System.out.println(substr);
+                // print the substing from i to j
+            }
+        }
+    }
+
     public  static void isPangram(String s){
         boolean[] arr = new boolean[26];
 
