@@ -1,4 +1,32 @@
 class Main {
+    public static int convertToInt(String str){
+        int convertedValue = 0;
+        for(int i=0; i<str.length(); i++){
+            char ch = str.charAt(i);
+            
+            int num = ch - '0';
+
+            convertedValue = convertedValue*10 + num;
+        }
+
+        return convertedValue;
+    }
+
+    public static ArrayList<Integer> arrayGenerator(String str){ 
+        String [] sarr = str.split(",");
+
+        ArrayList<Integer> res = new ArrayList<>();
+
+        for(int i=0; i<sarr.length; i++){
+            String str_Value = sarr[i];
+
+            int int_Value = convertToInt(str_Value);
+            // int int_Value = Integer.parseInt(str_Value);
+            res.add(int_Value);
+        }
+        return res;
+    }
+
     public static void ptice(int n, String ansKey) {
         String adrian = "ABC";
         String bruno = "BABC";
