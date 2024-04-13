@@ -1,4 +1,23 @@
 class Main {
+    public static int[] allOccurrences(int[] arr, int idx, int tar, int count){
+        if(idx == arr.length){
+            int[] ba = new int[count];
+            return ba;
+        }
+
+        int[] ans;
+        if(arr[idx] == tar){
+            ans = allOccurrences(arr, idx + 1, tar, count + 1);
+        } else {
+            ans = allOccurrences(arr, idx + 1, tar, count);
+        }
+
+        if(arr[idx] == tar){
+            ans[count] = idx;
+        }
+
+        return ans;
+    }
     public static int LastOccurrence(int[] arr, int idx, int tar){
         if(idx == arr.length){
             return -1;
@@ -11,7 +30,7 @@ class Main {
                 return idx;
             }
         }
-        
+
         return lastOccurrenceValue;
     }
 
@@ -48,7 +67,7 @@ class Main {
     }
 
     public static void main(String[] args){
-       int[] arr  = {5, 9, 10, 11, 8};
-       printArrayReverse(arr,0);
+       int[] arr  = {5, 9, 10, 11, 8, 11, 11, 4, 5};
+       System.out.println(LastOccurrence(arr,0,11));
     }
 }
