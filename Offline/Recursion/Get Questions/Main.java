@@ -1,5 +1,81 @@
 import java.util.ArrayList;
 class Main {
+    public static ArrayList<String> getMazePathsWithJumps(int i, int j, int n, int m){
+        if(i==n-1 && j==m-1){
+            ArrayList<String> bans = new ArrayList<>();
+            bans.add("");
+            return bans;
+        }
+        
+        if(i>=n || j>=m){
+            ArrayList<String> bans = new ArrayList<>();
+            return bans;
+        }
+
+        ArrayList<String> allPaths = new ArrayList<>();
+
+        // horizontal jumps
+        for(int jump=1; jump<m; jump++){
+            ArrayList<String> hpaths = getMazePathsWithJumps(i, j+jump, n, m);
+
+            for(String path: hpaths){
+                allPaths.add("h"+ jump + path);
+            }
+        }
+
+        // vertical jumps
+        for(int jump=1; jump<n; jump++){
+            ArrayList<String> vpaths = getMazePathsWithJumps(i+jump, j, n, m);
+
+            for(String path: vpaths){
+                allPaths.add("v"+ jump + path);
+            }
+        }
+
+        for(int jump=1; jump<Math.min(n,m); jump++){
+            ArrayList<String> dpaths = getMazePathsWithJumps(i+jump, j+jump, n, m);
+
+            for(String path: dpaths){
+                allPaths.add("d"+ jump + path);
+            }
+        }
+
+        return allPaths;
+    }
+
+    public static ArrayList<String> getMazePathswithDiagonalMove(int i, int j, int n, int m){
+        if(i==n-1 && j==m-1){
+            ArrayList<String> bans = new ArrayList<>();
+            bans.add("");
+            return bans;
+        }
+
+        if(i>=n || j>=m){
+            ArrayList<String> bans = new ArrayList<>();
+            return bans;
+        }
+
+        ArrayList<String> allPaths = new ArrayList<>();
+
+        // take a horizontal step
+        ArrayList<String> hpaths = getMazePathswithDiagonalMove(i, j+1, n, m); // {hv, vh, d}
+
+        for(String path: hpaths){ // {hv, vh, d}
+            allPaths.add("h" + path); //{hhv, hvh, hd}
+        }
+
+        ArrayList<String> vpaths = getMazePathswithDiagonalMove(i+1, j, n, m); // {hh}
+        for(String path: vpaths){
+            allPaths.add("v" + path); //{hhv, hvh, hd, vhh}
+        }
+
+        ArrayList<String> dpaths = getMazePathswithDiagonalMove(i+1, j + 1, n, m); // {h}
+        for(String path: dpaths){
+            allPaths.add("d" + path); // {hhv, hvh, hd, vhh, dh}
+        }
+
+        return allPaths;
+    }
     public static ArrayList<String> getMazePaths(int i, int j, int n, int m){
         if(i==n-1 && j==m-1){
             ArrayList<String> bans = new ArrayList<>();
@@ -122,7 +198,7 @@ class Main {
     public static void main(String[] args){
         String str = "789";
 
-        ArrayList<String> allSubs = getMazePaths(0,0,3,3);
+        ArrayList<String> allSubs = getMazePathsWithJumps(0,0,1,3);
 
         System.out.println(allSubs);
     }
