@@ -64,11 +64,27 @@ class Main {
         return ans;
     }
 
-    public static void main(String[] args){
-       int x = 5;
-       int y = 45;
+    public static void printZigZag(int n){
+        if(n == 0){
+            return;
+        }
 
-       int ans = sum(x,y);
-       System.out.println(ans);
+        System.out.println(n + "Pre");
+
+        printZigZag(n-1);
+
+        System.out.println(n + "In");
+
+        printZigZag(n-1);
+
+        System.out.println(n + "Post");
+    }
+    public static void main(String[] args){
+    //    int x = 5;
+    //    int y = 45;
+
+    //    int ans = sum(x,y);
+    //    System.out.println(ans);
+        printZigZag(2);
     }
 }
