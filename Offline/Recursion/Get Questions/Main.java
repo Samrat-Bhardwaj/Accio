@@ -1,5 +1,41 @@
 import java.util.ArrayList;
 class Main {
+    public static int countMazePaths(int i, int j, int n, int m){
+        if(i== n-1 && j == m-1){
+            return 1;
+        }
+
+        if(i>=n || j>=m){
+            return 0;
+        }
+
+        int hpaths = countMazePaths(i, j+1, n, m);
+        int vpaths = countMazePaths(i+1, j, n, m);
+
+        int totalPaths = hpaths + vpaths;
+
+        return totalPaths;
+    }
+
+    // same as above 
+    public static int countMazePaths(int n, int m){
+        if(n==0 && m==0){
+            return 1;
+        }
+
+        if(n<0 || m<0){
+            return 0;
+        }
+
+        int hpaths = countMazePaths(n, m-1);
+        int vpaths = countMazePaths(n-1, m);
+
+        int totalPaths = hpaths + vpaths;
+
+        return totalPaths;
+    }
+
+
     public static ArrayList<String> getMazePathsWithJumps(int i, int j, int n, int m){
         if(i==n-1 && j==m-1){
             ArrayList<String> bans = new ArrayList<>();
@@ -91,13 +127,13 @@ class Main {
         ArrayList<String> allPaths = new ArrayList<>();
 
         // take a horizontal step
-        ArrayList<String> hpaths = getMazePaths(i, j+1, n, m);
+        ArrayList<String> hpaths = getMazePaths(i, j+1, n, m); // 4
 
         for(String path: hpaths){
             allPaths.add("h" + path);
         }
 
-        ArrayList<String> vpaths = getMazePaths(i+1, j, n, m);
+        ArrayList<String> vpaths = getMazePaths(i+1, j, n, m); // 6
         for(String path: vpaths){
             allPaths.add("v" + path);
         }
