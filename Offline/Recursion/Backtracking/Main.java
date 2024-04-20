@@ -41,6 +41,24 @@ class Main {
         visited[i][j] = false; // why? backtracking
     }
 
+    public void printPermutations(String str, String asf) {
+        if(str.equals("")){
+            System.out.println(asf);
+            return;
+        }
+
+        for(int i=0; i<str.length(); i++){
+            if(i>0 && str.charAt(i-1) == str.charAt(i)){ // distinct
+                continue;
+            }
+            String beforeString = str.substring(0,i);
+            String afterString = str.substring(i+1);
+
+            String smallerString = beforeString + afterString;
+            printPermutations(smallerString, asf + str.charAt(i));
+        }
+    }
+
     public static void main(String[] args){
         int[][] matrix = {{0,1,0,0,0,0},{0,1,0,1,1,0},{0,0,0,0,0,0},{0,1,0,1,1,0},{0,1,0,1,1,0},{0,0,0,1,1,0}};
 

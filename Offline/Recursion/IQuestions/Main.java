@@ -35,6 +35,13 @@ class Main {
     }
 
     public static void main(String[] args){
-        
+        int[][] dirs = {{-1,0},{0,1},{1,0},{0,-1},{1,1},{1,-1},{-1,1},{-1,-1}};
+
+        for(int[] dir: dirs){ // {-1,0}
+            int newRow = row + dir[0];
+            int newCol = col + dir[1];
+
+            rec(newRow,newCol);
+        }
     }
 }
