@@ -16,8 +16,43 @@ class LinkedList {
         this.size = 0;
     }
 
-    public void addNext(int val){
+    public void addLast(int val){
+        Node nn = new Node(val);
+
+        if(this.head == null){
+            this.head = nn;
+            this.tail = nn;
+        } else {
+            this.tail.next = nn;
+            this.tail = nn;
+        }
         
+        this.size++;
+    }
+
+    public void addFirst(int val){
+        
+    }
+
+    public void removeFirst(){
+
+    }
+
+    public int getAt(int idx){
+        
+    }
+
+    public void removeLast(){
+
+    }
+
+    // display 
+    public void addAt(int idx, int val){
+
+    }
+
+    public void removeAt(int idx){
+
     }
 
     public int size(){
@@ -36,9 +71,11 @@ class LinkedList {
 class Main {
     public static void main(String[] args){
         LinkedList ll = new LinkedList();
-        ll.addNext(15);
-        ll.addNext(20);
-        ll.addNext(14);
-        ll.addNext(34);
+        ll.addLast(15);
+        ll.addLast(20);
+        ll.addLast(14);
+        ll.addLast(34);
+
+        ll.display();
     }
 }
