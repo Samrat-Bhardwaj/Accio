@@ -8,7 +8,7 @@ class Vechile {
         System.out.println("Ppppppp");
     }
 
-    public Vechile(String color){
+    private Vechile(String color){
         this.color = color;
         System.out.println("Constructor with color is called");
     }

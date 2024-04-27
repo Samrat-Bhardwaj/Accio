@@ -1,3 +1,4 @@
+
 class Bank {
     public int rateOfInterest(){
         return 5;
