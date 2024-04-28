@@ -31,7 +31,17 @@ class LinkedList {
     }
 
     public void addFirst(int val){
-        
+        Node nn = new Node(val);
+
+        if(this.head == null){
+            this.head = nn;
+            this.tail = nn;
+        } else {
+            nn.next = head;
+            head = nn;
+        }
+
+        this.size++;
     }
 
     public void removeFirst(){
@@ -39,7 +49,7 @@ class LinkedList {
     }
 
     public int getAt(int idx){
-        
+        return -1;
     }
 
     public void removeLast(){
@@ -63,19 +73,30 @@ class LinkedList {
         Node temp = head;
 
         while(temp != null){
-            System.out.println(temp.data + ", ");
+            System.out.print(temp.data + ", ");
             temp = temp.next;
         }
+
+        System.out.println();
     }
 }
+
 class Main {
     public static void main(String[] args){
         LinkedList ll = new LinkedList();
+        
         ll.addLast(15);
         ll.addLast(20);
         ll.addLast(14);
         ll.addLast(34);
 
         ll.display();
+
+        ll.addFirst(23);
+        ll.display();
+
+        ll.addFirst(34);
+        ll.display();
+
     }
 }
