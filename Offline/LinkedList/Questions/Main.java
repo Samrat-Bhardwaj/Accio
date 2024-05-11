@@ -5,6 +5,151 @@ class Node {
 }
 
 class Main {
+    public static Node removeInBetweenNodes2(Node head){
+        Node dummy = new Node(-1);
+        Node curr = head;
+
+        Node curr2 = dummy;
+
+        while(curr != null && curr.next != null){
+            Node currKaNext = curr.next;
+
+            // extract list 2
+            curr2.next = currKaNext;
+            
+            // thik kiya list 1
+            curr.next = curr.next.next;
+
+            // move
+            curr = curr.next;
+            curr2 = curr2.next;
+        }
+
+        curr2.next = null;
+
+        return dummy.next;
+    }
+
+    public static Node reverse(Node head){
+        Node curr = head;
+        Node prev = null;
+
+        while(curr != null){
+            Node currKaNext = curr.next;
+
+            curr.next = prev;
+
+            prev = curr;
+            curr = currKaNext;
+        }
+
+        head = prev;
+        return head;
+    }
+
+    public static Node findTail(Node head){
+        Node curr = head;
+
+        while(curr.next != null){
+            curr = curr.next;
+        }
+
+        return curr;
+    }
+    public static void display(Node head){
+        Node curr = head;
+
+        while(curr != null){
+            System.out.print(curr.data + " ");
+            curr = curr.next;
+        }
+
+        System.out.println();
+    }
+    public static void unfold(Node head){
+        // Removes nodes from in between
+        Node head2 = removeInBetweenNodes2(head);
+        // reverse second half
+        head2 = reverse(head2);
+
+        // attach both halves
+        Node tailHead1 = findTail(head);
+
+        tailHead1.next = head2;
+        display(head);
+    }
+
+    // leetcode 138 
+    public void copyAndInsert(Node head){
+        Node curr = head;
+
+        while(curr != null){
+            Node currCopy = new Node(curr.val);
+
+            Node currKaNext = curr.next;
+
+            curr.next = currCopy;
+            currCopy.next = currKaNext;
+
+            curr = currKaNext;
+        }
+    }
+    
+    public void assignRandomPointers(Node head){
+        Node curr = head;
+
+        while(curr != null){
+            if(curr.random != null){
+                // Node currKaCopy = curr.next;
+
+                // Node currKaRandom = curr.random;
+                // Node currKaRandomKaCopy = currKaRandom.next;
+
+                // currKaCopy.random = currKaRandomKaCopy;
+                curr.next.random = curr.random.next;
+            }
+
+            curr = curr.next.next;
+        }
+    }
+
+    public Node removeInBetweenNodes(Node head){
+        Node dummy = new Node(-1);
+
+        Node curr = head;
+        Node copyCurr = dummy;
+
+        while(curr != null){
+            Node currKaCopy = curr.next;
+            Node actualCurrNext = curr.next.next;
+
+            // actual list ko thik krdo 
+            curr.next = actualCurrNext;
+
+            // copy list ko bahar nikal lo
+            copyCurr.next = currKaCopy;
+
+            // move to next
+            curr = curr.next;
+            copyCurr = copyCurr.next;
+        }
+
+        return dummy.next;
+    }
+
+    public Node copyRandomList(Node head) {
+        // copy and insert in between
+        copyAndInsert(head);
+
+        // assign random pointers   
+        assignRandomPointers(head);
+
+        // remove in between nodes
+        Node copyHead = removeInBetweenNodes(head);
+
+        return copyHead;
+    }
+
     public static Node merge(Node head1, Node head2){
         Node dummy = new Node(-1);
         Node temp1 = head1;
@@ -291,6 +436,7 @@ class Main {
 
         return slow;
     }
+
     public static void main(String[] args){
         
     }
