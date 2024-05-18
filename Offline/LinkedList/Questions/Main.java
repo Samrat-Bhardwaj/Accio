@@ -4,7 +4,150 @@ class Node {
     Node(int d) {data = d; next = null; }
 }
 
+class Solution {
+    ListNode oh = null;
+    ListNode ot = null;
+
+    ListNode th = null;
+    ListNode tt = null;
+    
+    public void addFirst(ListNode nn){
+        if(th == null){
+            th = nn;
+            tt = nn;
+        } else {
+            nn.next = th;
+            th = nn;
+        }
+    }
+
+    public void addToOriginalList(){
+        if(oh == null){
+            oh = th;
+            ot = tt;
+        } else {
+            ot.next = th;
+            ot = tt;
+        }
+    }
+    public int getSize(ListNode head){
+        int size = 0;
+
+        while(head != null){
+            size++;
+            head = head.next;
+        }
+
+        return size;
+    }
+
+    public ListNode reverseKGroup(ListNode head, int k) {
+        int len = getSize(head);
+        ListNode temp = head;
+
+        while(len >= k){
+            int K = k;
+
+            while(K > 0){
+                ListNode tempKaNext = temp.next;
+                temp.next = null;
+
+                addFirst(temp);
+                temp = tempKaNext;
+                K--;
+            }
+
+            addToOriginalList();
+            // for next step
+            th = null;
+            tt = null;
+            len -= k;
+        }
+
+        ot.next = temp;
+
+        return oh;
+    }
+}
+
 class Main {
+    // merge recursively 
+    public static Node merge(Node ptr1, Node ptr2){
+        if(ptr1 == null){
+            return ptr2;
+        }
+        if(ptr2 == null){
+            return ptr1;
+        }
+
+        if(ptr1.data < ptr2.data){
+            ptr1.down = merge(ptr1.down, ptr2);
+            return ptr1;
+        } else {
+            ptr2.down = merge(ptr1, ptr2.down);
+            return ptr2;
+        }
+    }
+    
+    public static Node merge(Node ptr1, Node ptr2){
+        Node dummy = new Node(-1);
+        Node curr = dummy;
+
+        while(ptr1 != null && ptr2 != null){
+            if(ptr1.data < ptr2.data){
+                Node ptr1KaDown = ptr1.down;
+                ptr1.down = null;
+
+                // attach
+                curr.down = ptr1;
+                // move
+                ptr1 = ptr1KaDown;
+            } else {
+                Node ptr2KaDown = ptr2.down;
+                ptr2.down = null;
+
+                // attach
+                curr.down = ptr2;
+                // move
+                ptr2 = ptr2KaDown;
+            }
+
+            curr = curr.down;
+        }
+
+        if(ptr1 != null){
+            curr.down = ptr1;
+        } 
+        if(ptr2 != null){
+            curr.down = ptr2;
+        }
+
+        return dummy.down;
+    }
+
+    public static Node flatten(Node root) {
+        if(root == null || root.right == null){
+            return root;
+        }
+
+        root.right = flatten(root.right);
+
+        Node mergedHead = merge(root, root.right);
+
+        root.right = null;
+        return mergedHead;
+    }
+
+    public static void printList(Node head) {
+        Node curr = head;
+
+        while(curr != null){
+            System.out.print(curr.data + " ");
+            curr = curr.down;
+        }
+        System.out.println();
+    }
+
     public static Node removeInBetweenNodes2(Node head){
         Node dummy = new Node(-1);
         Node curr = head;
